@@ -1,22 +1,22 @@
-class MoviesResult {
-  MoviesResult({
+import 'genre.dart';
+
+class Movies {
+  Movies({
+    required this.movies,
     required this.page,
-    required this.results,
     required this.totalPages,
-    required this.totalResults,
   });
 
-  int page;
-  List<MovieResultItem> results;
-  int totalPages;
-  int totalResults;
+  final List<Movie> movies;
+  final int page;
+  final int totalPages;
 }
 
-class MovieResultItem {
-  MovieResultItem({
+class Movie {
+  Movie({
     required this.adult,
     required this.backdropPath,
-    required this.genreIds,
+    required this.genres,
     required this.id,
     required this.mediaType,
     required this.originalLanguage,
@@ -39,7 +39,7 @@ class MovieResultItem {
   bool adult;
   String backdropPath;
   int id;
-  List<int> genreIds;
+  List<Genre> genres;
   String title;
   String originalLanguage;
   String originalTitle;
