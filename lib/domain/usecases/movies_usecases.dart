@@ -1,3 +1,4 @@
+import '../managers/date_manager.dart';
 import '../models/genre.dart';
 import '../models/movie.dart';
 import '../models/movies_result.dart';
@@ -14,14 +15,17 @@ class MoviesUsecasesImp implements MoviesUsecases {
   MoviesUsecasesImp(
       {required MoviesRepository moviesRepo,
       required SettingsRepository settingsRepo,
-      required GenresRepository genresRepository})
-      : this._moviesRepo = moviesRepo,
-        this._genresRepository = genresRepository,
-        this._settingsRepo = settingsRepo;
+      required GenresRepository genresRepository,
+      required DateManager dateManager})
+      : _moviesRepo = moviesRepo,
+        _genresRepository = genresRepository,
+        _settingsRepo = settingsRepo,
+        _dateManager = dateManager;
 
   final MoviesRepository _moviesRepo;
   final SettingsRepository _settingsRepo;
   final GenresRepository _genresRepository;
+  final DateManager _dateManager;
 
   @override
   Stream<Movies> getMovies(int page) async* {
@@ -48,7 +52,7 @@ class MoviesUsecasesImp implements MoviesUsecases {
                   overview: item.overview,
                   popularity: item.popularity,
                   posterPath: _buildPosterPath(settings, item.posterPath),
-                  releaseDate: item.releaseDate,
+                  releaseDate: _reformatDate(item.releaseDate),
                   title: item.title,
                   video: item.video,
                   voteAverage: item.voteAverage,
@@ -83,5 +87,13 @@ class MoviesUsecasesImp implements MoviesUsecases {
         settings.images!.posterSizes.isEmpty ||
         path.isEmpty) return '';
     return '${settings.images!.secureBaseUrl}${settings.images!.posterSizes[2]}$path';
+  }
+
+  String _reformatDate(String dateString) {
+    return _dateManager.reformatDateString(
+      dateString,
+      'yyyy-MM-dd',
+      '''d 'de' MMMM 'del' yyyy''',
+    );
   }
 }

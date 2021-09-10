@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/cache/genres_cache_source.dart';
-import 'package:movies_app/cache/settings_cache_source.dart';
-import 'package:movies_app/data/genres_data_repository.dart';
-import 'package:movies_app/data/movies_data_repository.dart';
-import 'package:movies_app/data/settings_data_repository.dart';
-import 'package:movies_app/domain/usecases/movies_usecases.dart';
-import 'package:movies_app/presentation/cubit/movies_cubit.dart';
-import 'package:movies_app/presentation/pages/movies_list_page.dart';
-import 'package:movies_app/remote/genre_remote_source.dart';
-import 'package:movies_app/remote/movie_remote_source.dart';
-import 'package:movies_app/remote/settings_remote_source.dart';
+
+import '../../cache/genres_cache_source.dart';
+import '../../cache/settings_cache_source.dart';
+import '../../data/genres_data_repository.dart';
+import '../../data/movies_data_repository.dart';
+import '../../data/settings_data_repository.dart';
+import '../../domain/usecases/movies_usecases.dart';
+import '../../managers/date_manager_imp.dart';
+import '../../remote/genre_remote_source.dart';
+import '../../remote/movie_remote_source.dart';
+import '../../remote/settings_remote_source.dart';
+import '../cubit/movies_cubit.dart';
+import 'movies_list_page.dart';
 
 class MoviesProvider extends StatelessWidget {
   const MoviesProvider({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class MoviesProvider extends StatelessWidget {
             remoteSource: SettingsRemoteSource(),
           ),
           moviesRepo: MoviesDataRepository(MovieRemoteSource()),
+          dateManager: DateManagerImp(),
         ),
       ),
       child: MoviesListPage(),
