@@ -1,7 +1,6 @@
-import 'package:movies_app/domain/models/movie.dart';
-import 'package:movies_app/domain/models/movies_result.dart';
-
 import '../models/genre.dart';
+import '../models/movie.dart';
+import '../models/movies_result.dart';
 import '../models/settings.dart';
 import '../repositories/genres_repository.dart';
 import '../repositories/movies_repository.dart';

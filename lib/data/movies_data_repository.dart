@@ -1,8 +1,7 @@
-import 'package:movies_app/data/models/movies_dto.dart';
-import 'package:movies_app/data/sources/movies_source.dart';
-
 import '../domain/models/movies_result.dart';
 import '../domain/repositories/movies_repository.dart';
+import 'models/movies_dto.dart';
+import 'sources/movies_source.dart';
 
 class MoviesDataRepository extends MoviesRepository {
   MoviesDataRepository(this.remoteSource);

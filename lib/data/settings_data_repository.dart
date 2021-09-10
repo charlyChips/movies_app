@@ -1,7 +1,7 @@
-import 'package:movies_app/data/models/settings_dto.dart';
-import 'package:movies_app/data/sources/settings_source.dart';
-import 'package:movies_app/domain/models/settings.dart';
-import 'package:movies_app/domain/repositories/settings_repository.dart';
+import '../domain/models/settings.dart';
+import '../domain/repositories/settings_repository.dart';
+import 'models/settings_dto.dart';
+import 'sources/settings_source.dart';
 
 class SettingsDataRepository implements SettingsRepository {
   SettingsDataRepository({
