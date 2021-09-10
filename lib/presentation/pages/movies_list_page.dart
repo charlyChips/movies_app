@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/presentation/pages/movie_detail_page.dart';
 
 import '../../domain/models/movie.dart';
 import '../cubit/movies_cubit.dart';
@@ -32,7 +33,8 @@ class MoviesListPage extends StatelessWidget {
 
                     if (index < state.movies.length) {
                       final Movie movie = state.movies[index];
-                      return MovieCard(movie: movie);
+                      return MovieCard(
+                          movie: movie, onTap: () => _navigate(context, movie));
                     } else {
                       return Padding(
                         padding: EdgeInsets.fromLTRB(8, 8, 8, 60),
@@ -52,5 +54,12 @@ class MoviesListPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _navigate(BuildContext context, Movie movie) {
+    Navigator.of(context)
+        .push<void>(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return MovieDetailPage(movie: movie);
+    }));
   }
 }

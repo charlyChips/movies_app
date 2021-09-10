@@ -6,9 +6,11 @@ import '../../domain/models/movie.dart';
 import 'genre_label.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({Key? key, required this.movie}) : super(key: key);
+  const MovieCard({Key? key, required this.movie, required this.onTap})
+      : super(key: key);
 
   final Movie movie;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -24,12 +26,15 @@ class MovieCard extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: Row(
                 children: <Widget>[
-                  CachedNetworkImage(
-                    imageUrl: movie.backdropPath,
-                    width: size.width * 0.2,
-                    height: size.width * 0.2,
-                    fit: BoxFit.cover,
-                    placeholder: (context, string) => Icon(Icons.image),
+                  Hero(
+                    tag: movie.id,
+                    child: CachedNetworkImage(
+                      imageUrl: movie.backdropPath,
+                      width: size.width * 0.2,
+                      height: size.width * 0.2,
+                      fit: BoxFit.cover,
+                      placeholder: (context, string) => Icon(Icons.image),
+                    ),
                   ),
                   SizedBox(width: 8.0),
                   Expanded(
@@ -52,7 +57,7 @@ class MovieCard extends StatelessWidget {
                   ),
                   IconButton(
                       icon: Icon(Icons.arrow_forward_ios, color: Colors.blue),
-                      onPressed: () {})
+                      onPressed: onTap)
                 ],
               )),
         ));
