@@ -20,23 +20,31 @@ class MoviesListPage extends StatelessWidget {
           if (state.movies.isNotEmpty) {
             int itemCount = state.movies.length;
             if (state.isLoading) itemCount++;
+            return RefreshIndicator(
+              onRefresh: () async {
+                cubit.refresh();
+              },
+              child: ListView.builder(
+                  itemCount: itemCount,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == state.movies.length - 2)
+                      cubit.getMoviesNextPage();
 
-            return ListView.builder(
-                itemCount: itemCount,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == state.movies.length - 2)
-                    cubit.getMoviesNextPage();
-
-                  if (index < state.movies.length) {
-                    final Movie movie = state.movies[index];
-                    return MovieCard(movie: movie);
-                  } else {
-                    return Padding(
-                      padding: EdgeInsets.fromLTRB(8, 8, 8, 60),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                });
+                    if (index < state.movies.length) {
+                      final Movie movie = state.movies[index];
+                      return MovieCard(movie: movie);
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.fromLTRB(8, 8, 8, 60),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                  }),
+            );
+          } else if (state.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return Center(
             child: Text('No data'),
