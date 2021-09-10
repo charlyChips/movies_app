@@ -11,16 +11,22 @@ class MoviesCubit extends Cubit<MovieState> {
   MoviesCubit({required MoviesUsecases moviesUsecases})
       : _moviesUsecases = moviesUsecases,
         super(MovieState()) {
-    getMovies();
+    _getMovies(1);
   }
 
   final MoviesUsecases _moviesUsecases;
 
-  void getMovies() {
+  void getMoviesNextPage() {
+    if (!state.isLoading) _getMovies(state.page + 1);
+  }
+
+  void _getMovies(int page) {
     emit(state.copyWith(isLoading: true));
-    _moviesUsecases.getMovies(state.page).listen(
+    _moviesUsecases.getMovies(page).listen(
           (Movies result) {
-            emit(state.copyWith(page: result.page, movies: result.movies));
+            emit(state.copyWith(
+                page: result.page,
+                movies: [...state.movies, ...result.movies]));
           },
           onError: (Object error) {},
           onDone: () {

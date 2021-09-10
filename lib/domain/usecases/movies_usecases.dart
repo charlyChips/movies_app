@@ -62,8 +62,9 @@ class MoviesUsecasesImp implements MoviesUsecases {
   }
 
   String _buildBackdropPath(Settings settings, String path) {
-    if (settings.images == null || settings.images!.backdropSizes.isEmpty)
-      return '';
+    if (settings.images == null ||
+        settings.images!.backdropSizes.isEmpty ||
+        path.isEmpty) return '';
     return '${settings.images!.secureBaseUrl}${settings.images!.backdropSizes[1]}$path';
   }
 
@@ -78,8 +79,9 @@ class MoviesUsecasesImp implements MoviesUsecases {
   }
 
   String _buildPosterPath(Settings settings, String path) {
-    if (settings.images == null || settings.images!.posterSizes.isEmpty)
-      return '';
+    if (settings.images == null ||
+        settings.images!.posterSizes.isEmpty ||
+        path.isEmpty) return '';
     return '${settings.images!.secureBaseUrl}${settings.images!.posterSizes[2]}$path';
   }
 }

@@ -10,6 +10,7 @@ class MoviesListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MoviesCubit cubit = context.read<MoviesCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Películas'),
@@ -17,11 +18,24 @@ class MoviesListPage extends StatelessWidget {
       body: BlocBuilder<MoviesCubit, MovieState>(
         builder: (BuildContext context, MovieState state) {
           if (state.movies.isNotEmpty) {
+            int itemCount = state.movies.length;
+            if (state.isLoading) itemCount++;
+
             return ListView.builder(
-                itemCount: state.movies.length,
+                itemCount: itemCount,
                 itemBuilder: (BuildContext context, int index) {
-                  final Movie movie = state.movies[index];
-                  return MovieCard(movie: movie);
+                  if (index == state.movies.length - 2)
+                    cubit.getMoviesNextPage();
+
+                  if (index < state.movies.length) {
+                    final Movie movie = state.movies[index];
+                    return MovieCard(movie: movie);
+                  } else {
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(8, 8, 8, 60),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
                 });
           }
           return Center(
