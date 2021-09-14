@@ -38,3 +38,4 @@ doc/api/
 
 *.g.dart
 *.freezed.dart
+*.mocks.dart
