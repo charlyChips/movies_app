@@ -15,7 +15,7 @@
 
 ## Testing
 
- + To run the Unit Tests, please run the following command 'flutter test .'
+ + To run the Unit Tests, please run the following command ` flutter test . `
 
 ## Enhacements
  
