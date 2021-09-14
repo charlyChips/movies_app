@@ -22,7 +22,8 @@ class MoviesCubit extends Cubit<MovieState> {
   }
 
   void getMoviesNextPage() {
-    if (!state.isLoading) _getMovies(state.page + 1);
+    if (!state.isLoading && state.page < state.totalPages)
+      _getMovies(state.page + 1);
   }
 
   void _getMovies(int page) {
@@ -31,6 +32,7 @@ class MoviesCubit extends Cubit<MovieState> {
           (Movies result) {
             emit(state.copyWith(
                 page: result.page,
+                totalPages: result.totalPages,
                 movies: [...state.movies, ...result.movies]));
           },
           onError: (Object error) {},

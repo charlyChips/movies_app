@@ -56,6 +56,7 @@ class MovieCard extends StatelessWidget {
                     ),
                   ),
                   IconButton(
+                      key: ValueKey<String>('iconButton${movie.id}'),
                       icon: Icon(Icons.arrow_forward_ios, color: Colors.blue),
                       onPressed: onTap)
                 ],
